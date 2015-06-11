@@ -1,0 +1,14 @@
+<p>
+  For reward, here is a list of awesome computer scientists!
+</p>
+
+<p>
+  You want more? Add them yourself!
+</p>
+<p>
+  <input type="text" ng-model="about.newname">
+  <button ng-click="about.addName(about.newname)">Add</button>
+</p>
+<ul>
+  <li ng-repeat="name in about.names track by $index">{{name}}</li>
+</ul>
