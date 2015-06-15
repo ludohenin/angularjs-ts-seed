@@ -17,6 +17,7 @@ var Builder = require('systemjs-builder');
 var del = require('del');
 var fs = require('fs');
 var join = require('path').join;
+var karma = require('karma').server;
 var runSequence = require('run-sequence');
 var semver = require('semver');
 
@@ -103,6 +104,10 @@ gulp.task('clean.tmp', function(done) {
   del('tmp', done);
 });
 
+gulp.task('clean.test', function(done) {
+  del('test', done);
+});
+
 // --------------
 // Build dev.
 
@@ -112,7 +117,7 @@ gulp.task('build.lib.dev', /*['build.ng2.dev'],*/ function () {
 });
 
 gulp.task('build.js.dev', function () {
-  var result = gulp.src('./app/**/*ts')
+  var result = gulp.src(['./app/**/*.ts', '!./app/**/*.spec.ts'])
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(tsc(tsProject));
@@ -141,7 +146,7 @@ gulp.task('build.app.dev', function (done) {
 });
 
 gulp.task('build.dev', function (done) {
-  runSequence('clean.dev', ['build.lib.dev', 'build.app.dev'], done);
+  runSequence('clean.dev', 'build.lib.dev', 'build.app.dev', done);
 });
 
 // --------------
@@ -160,7 +165,8 @@ gulp.task('build.lib.prod', /*['build.ng2.prod'],*/ function () {
 });
 
 gulp.task('build.js.tmp', function () {
-  var result = gulp.src(['./app/**/*ts', '!./app/init.ts'])
+  var result = gulp.src(['./app/**/*.ts', '!./app/init.ts',
+                         '!./app/**/*.spec.ts'])
     .pipe(plumber())
     .pipe(tsc(tsProject));
 
@@ -237,7 +243,29 @@ gulp.task('bump.reset', function() {
 // --------------
 // Test.
 
-// To be implemented.
+gulp.task('build.test', ['build.app.dev', 'clean.test'], function() {
+  var result = gulp.src('./app/**/*.spec.ts')
+    .pipe(plumber())
+    .pipe(tsc(tsProject));
+
+  return result.js
+    .pipe(gulp.dest('./test'));
+});
+
+gulp.task('run.karma', function(done) {
+  karma.start({
+    configFile: join(__dirname, 'karma.conf.js'),
+    singleRun: true
+  }, done);
+});
+
+gulp.task('run.test', function(done) {
+  runSequence('build.test', 'run.karma', done);
+});
+
+gulp.task('test', ['run.test'], function() {
+  gulp.watch('./app/**', ['run.test']);
+});
 
 // --------------
 // Serve dev.
