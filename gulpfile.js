@@ -202,9 +202,7 @@ gulp.task('build.assets.prod', ['build.js.prod'], function () {
     .pipe(minifyHTML(HTMLMinifierOpts))
     .pipe(filterHTML.restore())
     .pipe(filterCSS)
-    .pipe(sourcemaps.init())
     .pipe(minifyCSS())
-    .pipe(sourcemaps.write())
     .pipe(filterCSS.restore())
     .pipe(gulp.dest(PATH.dest.prod.all));
 });
@@ -301,7 +299,7 @@ gulp.task('serve.prod', ['build.prod'], function () {
 function transformPath(env) {
   var v = '?v=' + getVersion();
   return function (filepath) {
-    arguments[0] = filepath.replace('/' + PATH.dest[env].all, '') + v;
+    arguments[0] = filepath.replace('/' + PATH.dest[env].all, '.') + v;
     return inject.transform.apply(inject.transform, arguments);
   };
 }
