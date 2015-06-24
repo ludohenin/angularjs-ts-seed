@@ -9,6 +9,11 @@ _This project is heavily inspired by [angular2-seed](https://github.com/mgechev/
 * Angular New Router _(out-of-date, awaiting angularjs 1.5.x with the new router to update)_
 * SystemJS
 
+# Unit tests
+* mocha
+* chai
+* sinon
+
 # How to start
 
 ```bash
@@ -21,7 +26,14 @@ npm install -g gulp
 gulp serve.dev
 # prod
 gulp serve.prod
+# test
+gulp test
 ```
+
+# Note
+
+There are some TypeScript errors related to `chai.d.ts` (expect not found) and `node.d.ts` dependency of `mocha.d.ts`.
+
 
 # License
 
