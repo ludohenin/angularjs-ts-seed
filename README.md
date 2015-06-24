@@ -4,7 +4,7 @@ A seed project for AngularJS apps written in TypeScript.
 
 _This project is heavily inspired by [angular2-seed](https://github.com/mgechev/angular2-seed)_
 
-## Features
+# Features
 * AngularJS 1.4.x
 * Angular New Router _(out-of-date, awaiting angularjs 1.5.x with the new router to update)_
 * SystemJS
