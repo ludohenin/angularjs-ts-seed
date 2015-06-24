@@ -12,12 +12,12 @@ var sourcemaps = require('gulp-sourcemaps');
 var template = require('gulp-template');
 var tsc = require('gulp-typescript');
 var uglify = require('gulp-uglify');
+var watch = require('gulp-watch');
 
 var Builder = require('systemjs-builder');
 var del = require('del');
 var fs = require('fs');
 var join = require('path').join;
-var karma = require('karma').server;
 var runSequence = require('run-sequence');
 var semver = require('semver');
 
@@ -55,11 +55,7 @@ var PATH = {
 };
 
 var appProdBuilder = new Builder({
-  baseURL: 'file:./tmp',
-  meta: {
-    'angular2/angular2': { build: false },
-    'angular2/router': { build: false }
-  }
+  baseURL: 'file:./tmp'
 });
 
 var HTMLMinifierOpts = { conditionals: true };
@@ -239,39 +235,14 @@ gulp.task('bump.reset', function() {
 });
 
 // --------------
-// Test.
-
-gulp.task('build.test', ['build.app.dev', 'clean.test'], function() {
-  var result = gulp.src('./app/**/*.spec.ts')
-    .pipe(plumber())
-    .pipe(tsc(tsProject));
-
-  return result.js
-    .pipe(gulp.dest('./test'));
-});
-
-gulp.task('run.karma', function(done) {
-  karma.start({
-    configFile: join(__dirname, 'karma.conf.js'),
-    singleRun: true
-  }, done);
-});
-
-gulp.task('run.test', function(done) {
-  runSequence('build.test', 'run.karma', done);
-});
-
-gulp.task('test', ['run.test'], function() {
-  gulp.watch('./app/**', ['run.test']);
-});
-
-// --------------
 // Serve dev.
 
 gulp.task('serve.dev', ['build.dev'], function () {
   var app;
 
-  gulp.watch('./app/**', ['build.app.dev']);
+  watch('./app/**', function () {
+    gulp.start('build.app.dev');
+  });
 
   app = connect().use(serveStatic(join(__dirname, PATH.dest.dev.all)));
   http.createServer(app).listen(port, function () {
@@ -285,7 +256,9 @@ gulp.task('serve.dev', ['build.dev'], function () {
 gulp.task('serve.prod', ['build.prod'], function () {
   var app;
 
-  gulp.watch('./app/**', ['build.app.prod']);
+  watch('./app/**', function () {
+    gulp.start('build.app.prod');
+  });
 
   app = connect().use(serveStatic(join(__dirname, PATH.dest.prod.all)));
   http.createServer(app).listen(port, function () {
