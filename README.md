@@ -12,8 +12,8 @@ Features
 # How to start
 
 ```bash
-git clone https://github.com/ludohenin/angularjs-requirejs-ts-seed
-cd angular2-seed
+git clone https://github.com/ludohenin/angularjs-ts-seed
+cd angularjs-ts-seed
 npm install
 # If you don't have gulp already installed
 npm install -g gulp
