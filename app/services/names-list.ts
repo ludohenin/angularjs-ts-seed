@@ -10,6 +10,3 @@ export class NamesList {
     this.names.push(value);
   }
 }
-
-export var namesListModule = angular.module('app.nameslist', [])
-  .service('NamesList', NamesList);

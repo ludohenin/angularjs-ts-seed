@@ -55,7 +55,7 @@ var PATH = {
 };
 
 var appProdBuilder = new Builder({
-  baseURL: 'file:./tmp'
+  baseURL: 'file:./tmp',
 });
 
 var HTMLMinifierOpts = { conditionals: true };

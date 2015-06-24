@@ -1,6 +1,6 @@
-import {NamesList, namesListModule} from '../../services/NameList';
+import {NamesList} from '../../services/names-list';
 
-class AboutController {
+export class AboutController {
   static $inject = ['NamesList'];
   names: Array<string>;
   list: NamesList;
@@ -15,6 +15,3 @@ class AboutController {
     newname = '';
   }
 }
-
-export default angular.module('app.about', [namesListModule.name])
-  .controller('AboutController', AboutController);

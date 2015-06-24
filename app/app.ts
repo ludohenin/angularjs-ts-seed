@@ -1,13 +1,13 @@
 /// <reference path="../typings/tsd.d.ts" />
 
-import homeModule from './components/home/home';
-import aboutModule from './components/about/about';
+import {components} from './components/components';
+import {services} from './services/services';
 
 var app = angular.module('app', [
   'ngNewRouter',
   'ngResource',
-  homeModule.name,
-  aboutModule.name
+  components.name,
+  services.name
 ]);
 
 var appRoutes = [
@@ -32,5 +32,5 @@ app.directive('app', () => {
 });
 
 
-angular.element(document).ready(() => angular.bootstrap(document.body,
-  [app.name], { strictDi: true }));
+angular.element(document)
+  .ready(() => angular.bootstrap(document.body, [app.name]));
