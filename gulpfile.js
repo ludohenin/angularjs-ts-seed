@@ -18,6 +18,7 @@ var Builder = require('systemjs-builder');
 var del = require('del');
 var fs = require('fs');
 var join = require('path').join;
+var karma = require('karma').server;
 var runSequence = require('run-sequence');
 var semver = require('semver');
 
@@ -48,7 +49,6 @@ var PATH = {
       './node_modules/es6-module-loader/dist/es6-module-loader-sans-promises.js.map',
       './node_modules/systemjs/dist/system.src.js',
       './node_modules/angular/angular.js',
-      './node_modules/angular-resource/angular-resource.js',
       './node_modules/angular-new-router/dist/router.es5.js'
     ]
   }
@@ -221,6 +221,31 @@ gulp.task('build.app.prod', function (done) {
 gulp.task('build.prod', function (done) {
   runSequence('clean.prod', 'build.lib.prod', 'clean.tmp', 'build.app.prod',
               done);
+});
+
+// --------------
+// Test.
+
+gulp.task('build.test', ['clean.test'], function(done) {
+  var result = gulp.src(['./app/**/*.ts', '!./app/init.ts'])
+    .pipe(plumber())
+    .pipe(tsc(tsProject));
+
+  return result.js
+    .pipe(gulp.dest('./test'));
+});
+
+gulp.task('run.karma', ['build.test'], function(done) {
+  karma.start({
+    configFile: join(__dirname, 'karma.conf.js'),
+    singleRun: true
+  }, done);
+});
+
+gulp.task('test', ['run.karma'], function() {
+  watch('./app/**', function() {
+      gulp.start('run.karma');
+  });
 });
 
 // --------------

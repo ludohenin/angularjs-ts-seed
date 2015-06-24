@@ -3,14 +3,13 @@
 import {components} from './components/components';
 import {services} from './services/services';
 
-var app = angular.module('app', [
+let app = angular.module('app', [
   'ngNewRouter',
-  'ngResource',
   components.name,
   services.name
 ]);
 
-var appRoutes = [
+let appRoutes = [
   { path: '/', component: 'home' },
   { path: '/about', component: 'about' }
 ];
@@ -31,6 +30,8 @@ app.directive('app', () => {
   };
 });
 
+
+export {app}
 
 angular.element(document)
   .ready(() => angular.bootstrap(document.body, [app.name]));

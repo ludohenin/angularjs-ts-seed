@@ -22,6 +22,18 @@
     },
     "angularjs/angular-sanitize.d.ts": {
       "commit": "52dc8fc39354569838b7bc09e24df690b852b4d9"
+    },
+    "chai/chai.d.ts": {
+      "commit": "448c3509f1ae76930ebd2d79df23e288172f5a0a"
+    },
+    "mocha/mocha.d.ts": {
+      "commit": "448c3509f1ae76930ebd2d79df23e288172f5a0a"
+    },
+    "sinon/sinon.d.ts": {
+      "commit": "448c3509f1ae76930ebd2d79df23e288172f5a0a"
+    },
+    "node/node.d.ts": {
+      "commit": "448c3509f1ae76930ebd2d79df23e288172f5a0a"
     }
   }
 }

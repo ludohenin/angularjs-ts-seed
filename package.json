@@ -1,8 +1,8 @@
 {
   "name": "angularjs-ts-seed",
   "version": "0.0.0",
-  "description": "AngularJS + RequireJS TypeScript application seed",
-  "main": "index.js",
+  "description": "AngularJS TypeScript application seed",
+  "repository": "https://github.com/ludohenin/angularjs-ts-seed",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -33,7 +33,15 @@
     "gulp-typescript": "~2.7.5",
     "gulp-uglify": "^1.2.0",
     "gulp-watch": "^4.2.4",
+    "karma": "^0.12.37",
+    "karma-commonjs": "0.0.13",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.0.2",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "karma-sinon-chai": "^1.0.0",
+    "mocha": "^2.2.5",
     "open": "0.0.5",
+    "phantomjs": "^1.9.17",
     "run-sequence": "^1.1.0",
     "semver": "^4.3.6",
     "serve-static": "^1.9.2",
@@ -43,8 +51,8 @@
   },
   "dependencies": {
     "angular": "1.4.1",
+    "angular-mocks": "^1.4.1",
     "angular-new-router": "0.5.3",
-    "angular-resource": "1.4.1",
     "es6-module-loader": "0.15.0",
     "systemjs": "0.16.0"
   }

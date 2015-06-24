@@ -4,3 +4,7 @@
 /// <reference path="angularjs/angular-mocks.d.ts" />
 /// <reference path="angularjs/angular-cookies.d.ts" />
 /// <reference path="angularjs/angular-sanitize.d.ts" />
+/// <reference path="chai/chai.d.ts" />
+/// <reference path="mocha/mocha.d.ts" />
+/// <reference path="sinon/sinon.d.ts" />
+/// <reference path="node/node.d.ts" />
